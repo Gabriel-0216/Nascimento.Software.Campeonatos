@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Campeonatos.Application.Servicos.Contratos;
+using Campeonatos.Dominio.Clubes;
+using Microsoft.AspNetCore.Mvc;
 using Nascimento.Software.Campeonatos.Api.models.DTO;
 
 namespace Nascimento.Software.Campeonatos.Api.Controllers
@@ -7,6 +10,14 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
     [ApiController]
     public class JogadorController : ControllerBase
     {
+        private readonly ICommomService<Jogador> _jogadorService;
+        private readonly IMapper _mapper;
+        public JogadorController(ICommomService<Jogador> service,
+            IMapper mapper)
+        {
+            _mapper = mapper;
+            _jogadorService = service;
+        }
 
         /// <summary>
         /// Retornar todos os jogadores
@@ -16,7 +27,16 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
         [Route("GetAll")]
         public async Task<ActionResult> GetAll()
         {
-            return Ok();
+            try
+            {
+                var jogadoresDTO = _mapper
+                    .Map<IEnumerable<JogadorDTO>>(await _jogadorService.GetAll());
+                return Ok(jogadoresDTO);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -28,7 +48,51 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
         [Route("create")]
         public async Task<ActionResult> Create(JogadorDTO post)
         {
-            return BadRequest();
+            try
+            {
+                var entity = _mapper.Map<Jogador>(post);
+                if (await _jogadorService.Add(entity)) return Ok("Cadastrado");
+
+                return BadRequest("Não foi possível cadastrar");
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
+
+        [HttpDelete]
+        [Route("delete")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("edit/{id:int}")]
+        public async Task<ActionResult> Edit(JogadorDTO edit, int id)
+        {
+            try
+            {
+                var entidadeMapeada = _mapper.Map<Jogador>(edit);
+                entidadeMapeada.Id = id;
+                var sucesso = await _jogadorService.Update(entidadeMapeada);
+                if (sucesso == true) return Ok("Operação realizada com sucesso");
+
+                return BadRequest("Não foi possível editar o registro.");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("listarJogadoresPorClube")]
+        public async Task<ActionResult> ListarJogadoresPorClube(int id)
+        {
+            return Ok();
+        }
+
     }
 }

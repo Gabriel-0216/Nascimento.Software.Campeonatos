@@ -9,6 +9,8 @@ namespace Nascimento.Software.Campeonatos.Api.models.Profiles
         public ProfileMapper()
         {
             CreateMap<JogadorDTO, Jogador>().ReverseMap();
+            CreateMap<ClubeDTO, Clube>().ReverseMap();
+            CreateMap<ClubeCadastroDTO, Clube>().ReverseMap();
         }
     }
 }

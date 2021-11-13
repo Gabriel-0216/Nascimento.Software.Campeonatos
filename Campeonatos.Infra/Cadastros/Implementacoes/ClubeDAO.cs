@@ -61,7 +61,9 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
 
         public async Task<Clube> GetById(int id)
         {
-            var entity = await _context.Clubes.FirstOrDefaultAsync(p => p.Id == id);
+            var entity = await _context.Clubes.AsNoTracking()
+                .Include(p=> p.Jogadores)
+                .FirstOrDefaultAsync(p => p.Id == id);
             if(entity != null)
             {
                 return entity;

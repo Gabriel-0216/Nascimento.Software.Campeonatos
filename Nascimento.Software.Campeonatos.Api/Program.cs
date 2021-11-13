@@ -1,7 +1,10 @@
+using Campeonatos.Application.Servicos.Contratos;
+using Campeonatos.Application.Servicos.Implementacoes;
 using Campeonatos.Dominio.Clubes;
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Cadastros.Implementacoes;
 using Campeonatos.Infra.Data;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,8 +17,13 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<ICommomDAO<Jogador>, JogadorDAO>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddScoped<ICommomDAO<Jogador>, JogadorDAO>();
+builder.Services.AddScoped<ICommomDAO<Clube>, ClubeDAO>();
+
+builder.Services.AddScoped<ICommomService<Jogador>, JogadorService>();
+builder.Services.AddScoped<ICommomService<Clube>, ClubeService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
