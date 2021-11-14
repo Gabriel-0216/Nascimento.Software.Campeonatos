@@ -1,0 +1,9 @@
+        //ToDo: Deletar e editar uma partida
+        //Implementar o registro de finalização de partida
+        //Gols, assistencias, cartões
+
+        //Registro de fianlização da partida: usuário vai informar o placar da partida
+        //Terá uma collection pra armazenar o número de gols por jogador
+        //numero de amarelos e vermelhos, se tiver
+
+        //O sistema tem que verificar se a quantidade de gols total dos jogadores é igual ao placar da partida

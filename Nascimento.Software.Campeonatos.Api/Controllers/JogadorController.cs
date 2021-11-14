@@ -65,7 +65,24 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
         [Route("delete")]
         public async Task<ActionResult> Delete(int id)
         {
-            return Ok();
+            try
+            {
+                var entidade = await _jogadorService.Get(id);
+                if(entidade != null)
+                { 
+                   var sucesso = await _jogadorService.Delete(entidade);
+                    if(sucesso == true)
+                    {
+                        return Ok("deletado");
+                    }
+                }
+
+                return BadRequest("Não foi possível efetuar o delete.");
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPut]
@@ -91,7 +108,19 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
         [Route("listarJogadoresPorClube")]
         public async Task<ActionResult> ListarJogadoresPorClube(int id)
         {
-            return Ok();
+            try
+            {
+                var jogadores = await _jogadorService.GetAll();
+                jogadores = jogadores.Where(p => p.ClubeId == id);
+                if (jogadores.Count() > 0) return Ok(_mapper
+                    .Map<IEnumerable<JogadorDTO>>(jogadores));
+
+                return BadRequest("Esse clube não existe ou não tem jogadores cadastrados");
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
         }
 
     }

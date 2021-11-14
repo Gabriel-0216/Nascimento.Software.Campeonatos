@@ -6,6 +6,8 @@ using Campeonatos.Infra.Cadastros.Implementacoes;
 using Campeonatos.Infra.Data;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Campeonatos.Infra.Cadastros.Implementacoes.SubDominios;
+using Campeonatos.Dominio.Tabela;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,8 +27,22 @@ builder.Services.AddScoped<ICommomDAO<Clube>, ClubeDAO>();
 builder.Services.AddScoped<ICommomService<Jogador>, JogadorService>();
 builder.Services.AddScoped<ICommomService<Clube>, ClubeService>();
 
+builder.Services.AddScoped<IPartidaService, PartidaService>();
+builder.Services.AddScoped<IPartidasDAO, PartidasDAO>();
+
+builder.Services.AddScoped<IFinalizacaoPartidaService, FinalizacaoPartidaService>();
+builder.Services.AddScoped<IFinalizacaoPartidaDAO, PartidasFinalDAO>();
+
+builder.Services.AddScoped<ICommomDAO<Amarelos>, AmarelosDAO>();
+builder.Services.AddScoped<ICommomDAO<Assistencias>, AssistenciasDAO>();
+builder.Services.AddScoped<ICommomDAO<Artilharia>, ArtilhariaDAO>();
+builder.Services.AddScoped<ICommomDAO<Vermelhos>, VermelhosDAO>();
+
+
+builder.Services.AddScoped<ITabelasService, TabelasService>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("Default")), ServiceLifetime.Transient);
 
 var app = builder.Build();
 

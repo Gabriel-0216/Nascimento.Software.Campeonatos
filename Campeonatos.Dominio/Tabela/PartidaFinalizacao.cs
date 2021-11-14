@@ -15,6 +15,8 @@ namespace Campeonatos.Dominio.Tabela
         public bool TeveVencedor { get; set; }
         public int VencedorId { get; set; }
         public Clube Vencedor { get; set; }
+        public int GolsMandante { get; set; }
+        public int GolsVisitante { get; set; }
 
     }
 }

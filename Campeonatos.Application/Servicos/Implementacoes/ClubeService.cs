@@ -69,6 +69,10 @@ namespace Campeonatos.Application.Servicos.Implementacoes
         {
             try
             {
+                var clubeExists = await Get(entity.Id);
+                if (clubeExists == null) return false;
+
+
                 if (await _clubeDAO.Update(entity)) return true;
 
                 return false;

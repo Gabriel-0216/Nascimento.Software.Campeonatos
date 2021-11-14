@@ -72,5 +72,43 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                var entidade = await _clubeDAO.Get(id);
+                if(entidade != null)
+                {
+                    var sucesso = await _clubeDAO.Delete(entidade);
+                    if (sucesso == true) return Ok("Deletado");
+                }
+                return BadRequest("Não foi possível deletar o registro");
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+        [HttpPut]
+        [Route("edit/{id:int}")]
+        public async Task<ActionResult> EditarClube(int id, ClubeCadastroDTO clube)
+        {
+            try
+            {
+                var entidadeMapeada = _mapper.Map<Clube>(clube);
+                entidadeMapeada.Id = id;
+                if (await _clubeDAO.Update(entidadeMapeada)) return Ok("Editado");
+
+
+                return BadRequest("Não foi possível editar");
+            }
+            catch(Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+            }
+        }
+            
     }
 }

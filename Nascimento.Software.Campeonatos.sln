@@ -3,21 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nascimento.Software.Campeonatos.Api", "Nascimento.Software.Campeonatos.Api\Nascimento.Software.Campeonatos.Api.csproj", "{5A9AE7E7-BC57-4D54-9102-F440522EC3A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nascimento.Software.Campeonatos.Api", "Nascimento.Software.Campeonatos.Api\Nascimento.Software.Campeonatos.Api.csproj", "{5A9AE7E7-BC57-4D54-9102-F440522EC3A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Dominio", "01 - Dominio", "{63D1E9CE-32F3-4BCA-A910-27D54C0A2AC4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Api", "04 - Api", "{636F68AA-EC42-430F-9B88-002A20C91473}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campeonatos.Dominio", "Campeonatos.Dominio\Campeonatos.Dominio.csproj", "{A7152DD5-A586-4C28-A135-7314363FB494}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Campeonatos.Dominio", "Campeonatos.Dominio\Campeonatos.Dominio.csproj", "{A7152DD5-A586-4C28-A135-7314363FB494}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Infra", "02 - Infra", "{517C6701-5852-44EC-BB46-6C67905BC0D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campeonatos.Infra", "Campeonatos.Infra\Campeonatos.Infra.csproj", "{DE5484E3-800F-49F6-8882-5F458B62ABCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Campeonatos.Infra", "Campeonatos.Infra\Campeonatos.Infra.csproj", "{DE5484E3-800F-49F6-8882-5F458B62ABCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Application", "03 - Application", "{73092546-9DED-4FB8-8564-7DC3326E10C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Campeonatos.Application", "Campeonatos.Application\Campeonatos.Application.csproj", "{1241C8E0-F7EB-4458-8F8A-586D80A68085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Campeonatos.Application", "Campeonatos.Application\Campeonatos.Application.csproj", "{1241C8E0-F7EB-4458-8F8A-586D80A68085}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CE05F561-492F-4401-BB14-7E373E4F0D6D}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
