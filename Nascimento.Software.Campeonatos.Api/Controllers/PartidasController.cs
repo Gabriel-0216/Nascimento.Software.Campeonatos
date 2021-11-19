@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Campeonatos.Application.Servicos.Contratos;
 using Campeonatos.Dominio.Tabela;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nascimento.Software.Campeonatos.Api.models.DTO;
 
@@ -9,13 +10,14 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PartidasController : ControllerBase
     {
 
         private readonly IPartidaService _service;
         private readonly IFinalizacaoPartidaService _finalizacaoService;
         private readonly IMapper _mapper;
-        public PartidasController(IPartidaService service, 
+        public PartidasController(IPartidaService service,
             IFinalizacaoPartidaService finalizcaoService,
             IMapper mapper)
         {
@@ -31,17 +33,17 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
             try
             {
                 var entidade = await _service.ListarPartidas(incluirJogadores);
-                if(entidade == null)
+                if (entidade == null)
                 {
                     throw new Exception("Nenhum registro retornado.");
                 }
                 var entidadeMapeada = _mapper.Map<IEnumerable<PartidaDTO>>(entidade);
                 return Ok(entidadeMapeada);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }              
+            }
         }
 
         [HttpGet]
@@ -51,7 +53,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
             try
             {
                 var entidade = await _service.ListarPartidaPorId(id, incluirJogadores);
-                if(entidade == null)
+                if (entidade == null)
                 {
                     throw new Exception("Nenhum registro retornado.");
                 }
@@ -59,7 +61,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 var entidadeMapeada = _mapper.Map<PartidaDTO>(entidade);
                 return Ok(entidadeMapeada);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -72,9 +74,9 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
             try
             {
                 return Ok(await _service.RegistrarPartida(_mapper.Map<Partidas>(model)));
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -94,7 +96,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 VencedorId = model.VencedorId,
             };
             int qtdeGolsRegistro = 0;
-            if(model.Gols != null)
+            if (model.Gols != null)
             {
                 foreach (var item in model.Gols)
                 {
@@ -106,9 +108,9 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 }
             }
             int qtdeAssistencias = 0;
-            if(model.Assistencias != null)
+            if (model.Assistencias != null)
             {
-                foreach(var item in model.Assistencias)
+                foreach (var item in model.Assistencias)
                 {
                     qtdeAssistencias += item.QtdeAssistencias;
                 }
@@ -132,7 +134,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 return Ok("Sucesso");
             }
             return BadRequest("Não foi possível cadastrar");
-            
+
         }
 
     }

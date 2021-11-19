@@ -1,11 +1,13 @@
 ﻿using Campeonatos.Application.Servicos.Contratos;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Nascimento.Software.Campeonatos.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class TabelasController : ControllerBase
     {
         private readonly ITabelasService _tabela;

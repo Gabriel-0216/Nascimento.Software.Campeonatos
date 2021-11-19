@@ -8,7 +8,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
     {
         private readonly ICommomDAO<Clube> _clubeDAO;
         private readonly ICommomDAO<Jogador> _jogadorDAO;
-        public ClubeService(ICommomDAO<Clube> clubeDAO, 
+        public ClubeService(ICommomDAO<Clube> clubeDAO,
             ICommomDAO<Jogador> jogadorDAO)
         {
             _jogadorDAO = jogadorDAO;
@@ -35,18 +35,18 @@ namespace Campeonatos.Application.Servicos.Implementacoes
             {
                 var jogadorClube = await _jogadorDAO.GetAll();
                 jogadorClube = jogadorClube.Where(p => p.ClubeId == entity.Id);
-                
-                if(jogadorClube.Count() > 0)
+
+                if (jogadorClube.Count() > 0)
                 {
                     return false;
                 }
 
                 if (await _clubeDAO.Delete(entity)) return true;
-                
-               
+
+
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro {e.Message}");
             }
@@ -77,7 +77,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
 
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro {e.Message}");
             }

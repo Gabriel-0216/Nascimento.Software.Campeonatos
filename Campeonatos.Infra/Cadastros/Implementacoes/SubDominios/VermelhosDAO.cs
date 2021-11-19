@@ -2,11 +2,6 @@
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Implementacoes.SubDominios
 {

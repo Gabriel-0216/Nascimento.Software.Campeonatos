@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using Campeonatos.Application.Servicos.Contratos;
 using Campeonatos.Dominio.Clubes;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nascimento.Software.Campeonatos.Api.models.DTO;
 
@@ -9,6 +10,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ClubeController : ControllerBase
     {
         private readonly ICommomService<Clube> _clubeDAO;
@@ -25,13 +27,13 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
         {
             try
             {
-                if(await _clubeDAO.Add(_mapper.Map<Clube>(clube)))
+                if (await _clubeDAO.Add(_mapper.Map<Clube>(clube)))
                 {
                     return Ok("cadastrado");
                 }
                 return BadRequest("Não foi possível cadastrar");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
@@ -46,13 +48,13 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 var entity = await _clubeDAO.GetAll();
                 var entityDTO = _mapper.Map<IEnumerable<ClubeDTO>>(entity);
                 return Ok(entityDTO);
-                
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
-            
+
         }
 
         [HttpGet]
@@ -67,7 +69,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                 var entidadeMapeada = _mapper.Map<ClubeDTO>(entidade);
                 return Ok(entidadeMapeada);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
@@ -79,14 +81,14 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
             try
             {
                 var entidade = await _clubeDAO.Get(id);
-                if(entidade != null)
+                if (entidade != null)
                 {
                     var sucesso = await _clubeDAO.Delete(entidade);
                     if (sucesso == true) return Ok("Deletado");
                 }
                 return BadRequest("Não foi possível deletar o registro");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
@@ -104,11 +106,11 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 
                 return BadRequest("Não foi possível editar");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
         }
-            
+
     }
 }

@@ -2,11 +2,6 @@
 using Campeonatos.Dominio.Clubes;
 using Campeonatos.Dominio.Tabela;
 using Campeonatos.Infra.Cadastros.Contratos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Application.Servicos.Implementacoes
 {
@@ -29,7 +24,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 var delete = await _DAO.DeletarPartida(entidade);
                 return delete;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -81,7 +76,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
             {
                 return await _DAO.ListarPartidasPorClube(id, clube, incluirJogadores);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro {e.Message}");
             }
@@ -99,7 +94,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 }
 
                 var visitanteExists = await _clubeService.Get(entidade.VisitanteId);
-                if(visitanteExists == null)
+                if (visitanteExists == null)
                 {
                     throw new Exception("Clube visitante não existe");
                 }
@@ -107,7 +102,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 return await _DAO.RegistrarPartida(entidade);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Não foi possível registrar a partida, {e.Message}");
             }

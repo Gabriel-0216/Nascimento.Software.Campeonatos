@@ -3,11 +3,6 @@ using Campeonatos.Dominio.Tabela;
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Implementacoes
 {
@@ -28,7 +23,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
 
                 return false;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
@@ -43,7 +38,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
 
                 return false;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -64,7 +59,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
                 }
 
                 var entidade = await query.FirstOrDefaultAsync();
-                if(entidade != null)
+                if (entidade != null)
                 {
                     return entidade;
                 }
@@ -94,7 +89,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
                 }
                 throw new Exception("ocorreu um erro");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro {e.Message}");
             }
@@ -105,7 +100,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             bool incluirJogadores = false)
         {
             IQueryable<Partidas> query = _context.Partidas.AsNoTracking();
-            if(id != null)
+            if (id != null)
             {
                 query = query.Where(p => p.MandanteId == id || p.VisitanteId == id);
             }

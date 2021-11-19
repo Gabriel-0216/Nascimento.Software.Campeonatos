@@ -1,5 +1,4 @@
-﻿using Campeonatos.Dominio.Tabela;
-using Nascimento.Software.Campeonatos.Api.models.DTO.Subdominios;
+﻿using Nascimento.Software.Campeonatos.Api.models.DTO.Subdominios;
 
 namespace Nascimento.Software.Campeonatos.Api.models.DTO
 {

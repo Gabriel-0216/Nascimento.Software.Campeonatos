@@ -19,16 +19,16 @@ namespace Campeonatos.Application.Servicos.Implementacoes
             try
             {
                 var clubeExists = await _ClubeDAO.GetById(entity.ClubeId);
-                if(clubeExists != null)
+                if (clubeExists != null)
                 {
-                    if(await _JogadorDAO.Add(entity))
+                    if (await _JogadorDAO.Add(entity))
                     {
                         return true;
                     }
                 }
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro: {e.Message}");
             }
@@ -44,7 +44,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 }
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro: {e.Message}");
             }
@@ -55,13 +55,13 @@ namespace Campeonatos.Application.Servicos.Implementacoes
             try
             {
                 var entity = await _JogadorDAO.GetById(id);
-                if(entity != null)
+                if (entity != null)
                 {
                     return entity;
                 }
                 throw new NullReferenceException();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro: {e.Message}");
             }
@@ -80,9 +80,9 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 if (clubeExists == null) return false;
 
                 var jogadorExists = await Get(entity.Id);
-                if(jogadorExists == null) return false;
+                if (jogadorExists == null) return false;
 
-                if(await _JogadorDAO.Update(entity))
+                if (await _JogadorDAO.Update(entity))
                 {
                     return true;
                 }
@@ -90,7 +90,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 return false;
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro, {e.Message}");
             }

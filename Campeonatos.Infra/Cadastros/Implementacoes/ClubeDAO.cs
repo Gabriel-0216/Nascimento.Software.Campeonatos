@@ -2,11 +2,6 @@
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Implementacoes
 {
@@ -22,7 +17,8 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             try
             {
                 _context.Clubes.Add(entity);
-                if(await _context.SaveChangesAsync() > 0){
+                if (await _context.SaveChangesAsync() > 0)
+                {
                     return true;
                 }
                 return false;
@@ -38,13 +34,13 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             try
             {
                 _context.Clubes.Remove(entity);
-                if(await _context.SaveChangesAsync() > 0)
+                if (await _context.SaveChangesAsync() > 0)
                 {
                     return true;
                 }
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro, {e.Message}");
             }
@@ -62,9 +58,9 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
         public async Task<Clube> GetById(int id)
         {
             var entity = await _context.Clubes.AsNoTracking()
-                .Include(p=> p.Jogadores)
+                .Include(p => p.Jogadores)
                 .FirstOrDefaultAsync(p => p.Id == id);
-            if(entity != null)
+            if (entity != null)
             {
                 return entity;
             }
@@ -76,12 +72,13 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             try
             {
                 _context.Clubes.Update(entity);
-                if(await _context.SaveChangesAsync() > 0)
+                if (await _context.SaveChangesAsync() > 0)
                 {
                     return true;
                 }
                 return false;
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro, {e.Message}");
             }

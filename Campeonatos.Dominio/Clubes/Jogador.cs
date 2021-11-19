@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Campeonatos.Dominio.Clubes
 {
@@ -17,6 +12,6 @@ namespace Campeonatos.Dominio.Clubes
         public int Gols { get; set; } = 0;
         public int Assistencias { get; set; } = 0;
         public int Amarelos { get; set; } = 0;
-        public int Vermelhos { get; set; } = 0; 
+        public int Vermelhos { get; set; } = 0;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Campeonatos.Application.Servicos.Contratos;
 using Campeonatos.Dominio.Clubes;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nascimento.Software.Campeonatos.Api.models.DTO;
 
@@ -8,6 +10,8 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class JogadorController : ControllerBase
     {
         private readonly ICommomService<Jogador> _jogadorService;
@@ -33,7 +37,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
                     .Map<IEnumerable<JogadorDTO>>(await _jogadorService.GetAll());
                 return Ok(jogadoresDTO);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -55,7 +59,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 
                 return BadRequest("Não foi possível cadastrar");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }
@@ -68,10 +72,10 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
             try
             {
                 var entidade = await _jogadorService.Get(id);
-                if(entidade != null)
-                { 
-                   var sucesso = await _jogadorService.Delete(entidade);
-                    if(sucesso == true)
+                if (entidade != null)
+                {
+                    var sucesso = await _jogadorService.Delete(entidade);
+                    if (sucesso == true)
                     {
                         return Ok("deletado");
                     }
@@ -79,7 +83,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 
                 return BadRequest("Não foi possível efetuar o delete.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -98,7 +102,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 
                 return BadRequest("Não foi possível editar o registro.");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -117,7 +121,7 @@ namespace Nascimento.Software.Campeonatos.Api.Controllers
 
                 return BadRequest("Esse clube não existe ou não tem jogadores cadastrados");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
             }

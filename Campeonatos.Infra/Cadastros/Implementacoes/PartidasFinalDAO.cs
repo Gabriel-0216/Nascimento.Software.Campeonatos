@@ -3,11 +3,6 @@ using Campeonatos.Dominio.Tabela;
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Implementacoes
 {
@@ -18,8 +13,8 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
         {
             _context = context;
         }
-        public async Task<bool> RegistrarFinalizacao(PartidaFinalizacao partida, 
-            List<Artilharia> gols, List<Assistencias> assistencias, 
+        public async Task<bool> RegistrarFinalizacao(PartidaFinalizacao partida,
+            List<Artilharia> gols, List<Assistencias> assistencias,
             List<Amarelos> cartoesAmarelos, List<Vermelhos> cartoesVermelhos)
         {
             try
@@ -30,28 +25,28 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
 
                 if (gols != null)
                 {
-                    foreach(var item in gols)
+                    foreach (var item in gols)
                     {
                         _context.Artilharia.Add(item);
                     }
                 }
-                if(assistencias != null)
+                if (assistencias != null)
                 {
-                    foreach(var item in assistencias)
+                    foreach (var item in assistencias)
                     {
                         _context.Assistencias.Add(item);
                     }
                 }
-                if(cartoesAmarelos != null)
+                if (cartoesAmarelos != null)
                 {
-                    foreach(var item in cartoesAmarelos)
+                    foreach (var item in cartoesAmarelos)
                     {
                         _context.Amarelos.Add(item);
                     }
                 }
-                if(cartoesVermelhos != null)
+                if (cartoesVermelhos != null)
                 {
-                    foreach(var item in cartoesVermelhos)
+                    foreach (var item in cartoesVermelhos)
                     {
                         _context.Vermelhos.Add(item);
                     }
@@ -61,7 +56,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
                 return true;
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro {e.Message}");
             }
@@ -75,7 +70,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
                 if (entidade != null) return entidade;
                 throw new Exception("Essa partida não existe");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new Exception($"Ocorreu um erro, {e.Message}");
             }

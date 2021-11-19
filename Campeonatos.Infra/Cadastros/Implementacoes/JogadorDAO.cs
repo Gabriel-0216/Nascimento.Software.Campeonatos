@@ -2,11 +2,6 @@
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Implementacoes
 {
@@ -22,13 +17,13 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             try
             {
                 _context.Jogadores.Add(entity);
-                if(await _context.SaveChangesAsync() > 0)
+                if (await _context.SaveChangesAsync() > 0)
                 {
                     return true;
                 }
                 return false;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return false;
             }
@@ -39,7 +34,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             try
             {
                 _context.Jogadores.Remove(entity);
-                if(await _context.SaveChangesAsync() > 0)
+                if (await _context.SaveChangesAsync() > 0)
                 {
                     return true;
                 }
@@ -59,7 +54,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
         public async Task<Jogador> GetById(int id)
         {
             var retorno = await _context.Jogadores.AsNoTracking().Where(p => p.Id == id).FirstOrDefaultAsync();
-            if(retorno == null)
+            if (retorno == null)
             {
                 throw new Exception("Nenhum registro retornado");
             }
@@ -71,7 +66,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes
             try
             {
                 _context.Jogadores.Update(entity);
-                if(await _context.SaveChangesAsync() > 0)
+                if (await _context.SaveChangesAsync() > 0)
                 {
                     return true;
                 }

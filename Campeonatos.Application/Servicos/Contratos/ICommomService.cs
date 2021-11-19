@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campeonatos.Application.Servicos.Contratos
+﻿namespace Campeonatos.Application.Servicos.Contratos
 {
     public interface ICommomService<T> where T : class
     {

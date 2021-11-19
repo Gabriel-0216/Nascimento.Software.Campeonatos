@@ -2,11 +2,6 @@
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Implementacoes.SubDominios
 {
@@ -32,7 +27,7 @@ namespace Campeonatos.Infra.Cadastros.Implementacoes.SubDominios
 
         public async Task<IEnumerable<Amarelos>> GetAll()
         {
-            return await _context.Amarelos.Include(p=> p.Jogador).AsNoTracking().ToListAsync();
+            return await _context.Amarelos.Include(p => p.Jogador).AsNoTracking().ToListAsync();
         }
 
         public Task<Amarelos> GetById(int id)

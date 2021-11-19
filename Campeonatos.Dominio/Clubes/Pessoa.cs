@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campeonatos.Dominio.Clubes
+﻿namespace Campeonatos.Dominio.Clubes
 {
     public class Pessoa
     {
@@ -18,7 +12,7 @@ namespace Campeonatos.Dominio.Clubes
 
         private bool Validacoes(DateTime dataNascimento)
         {
-            if(dataNascimento > DateTime.Now)
+            if (dataNascimento > DateTime.Now)
             {
                 return false;
             }

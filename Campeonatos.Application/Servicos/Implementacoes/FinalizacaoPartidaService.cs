@@ -2,11 +2,6 @@
 using Campeonatos.Dominio.Clubes;
 using Campeonatos.Dominio.Tabela;
 using Campeonatos.Infra.Cadastros.Contratos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Application.Servicos.Implementacoes
 {
@@ -15,15 +10,15 @@ namespace Campeonatos.Application.Servicos.Implementacoes
         private readonly IFinalizacaoPartidaDAO _DAO;
         private readonly IPartidasDAO _partidaDAO;
         private readonly ICommomDAO<Jogador> _jogadorDAO;
-        public FinalizacaoPartidaService(IFinalizacaoPartidaDAO DAO, 
-            ICommomDAO<Jogador> jogadorDAO, IPartidasDAO partidaDAO )
+        public FinalizacaoPartidaService(IFinalizacaoPartidaDAO DAO,
+            ICommomDAO<Jogador> jogadorDAO, IPartidasDAO partidaDAO)
         {
             _DAO = DAO;
             _partidaDAO = partidaDAO;
             _jogadorDAO = jogadorDAO;
         }
-        public async Task<bool> RegistrarFinalizacao(PartidaFinalizacao partida, 
-            List<Artilharia> gols, List<Assistencias> assistencias, 
+        public async Task<bool> RegistrarFinalizacao(PartidaFinalizacao partida,
+            List<Artilharia> gols, List<Assistencias> assistencias,
             List<Amarelos> cartoesAmarelos, List<Vermelhos> cartoesVermelhos)
         {
             try
@@ -34,34 +29,34 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                     throw new Exception("Partida não existe");
                 }
 
-                if(partida.TeveVencedor == false && (partida.GolsMandante - partida.GolsVisitante) != 0)
+                if (partida.TeveVencedor == false && (partida.GolsMandante - partida.GolsVisitante) != 0)
                 {
                     throw new Exception(@"Erro, você informou que a partida terminou empatada, 
                         mas a diferença entre gols dos times é maior que zero");
                 }
 
                 var lista = new List<int>();
-                foreach(var item in gols)
+                foreach (var item in gols)
                 {
                     lista.Add(item.JogadorId);
                 }
-                foreach(var item in assistencias)
+                foreach (var item in assistencias)
                 {
                     lista.Add(item.JogadorId);
                 }
-                foreach(var item in cartoesAmarelos)
+                foreach (var item in cartoesAmarelos)
                 {
                     lista.Add(item.JogadorId);
                 }
-                foreach(var item in cartoesVermelhos)
+                foreach (var item in cartoesVermelhos)
                 {
                     lista.Add(item.JogadorId);
                 }
                 var listaFormatada = lista.Distinct().ToList();
-                foreach(var item in listaFormatada)
+                foreach (var item in listaFormatada)
                 {
                     var exists = _jogadorDAO.GetById(item);
-                    if(exists == null) { throw new Exception("Jogador não existe"); }
+                    if (exists == null) { throw new Exception("Jogador não existe"); }
                 }
 
                 var operacao = await _DAO.RegistrarFinalizacao(partida, gols, assistencias, cartoesAmarelos, cartoesVermelhos);
@@ -69,7 +64,8 @@ namespace Campeonatos.Application.Servicos.Implementacoes
                 return operacao;
 
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception($"ocorreu um erro {ex.Message}");
             }
@@ -81,7 +77,7 @@ namespace Campeonatos.Application.Servicos.Implementacoes
             {
                 return await _DAO.RetornarPartidaPorId(id);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Ocorreu um erro, {ex.Message}");
             }

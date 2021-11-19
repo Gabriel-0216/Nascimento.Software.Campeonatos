@@ -1,12 +1,6 @@
 ﻿using Campeonatos.Application.Servicos.Contratos;
 using Campeonatos.Dominio.Tabela;
 using Campeonatos.Infra.Cadastros.Contratos;
-using Campeonatos.Infra.Cadastros.Implementacoes.SubDominios;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Application.Servicos.Implementacoes
 {

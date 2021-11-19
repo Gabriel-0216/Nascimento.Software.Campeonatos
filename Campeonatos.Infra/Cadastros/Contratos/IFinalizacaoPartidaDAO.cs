@@ -1,10 +1,5 @@
 ﻿using Campeonatos.Dominio.Clubes;
 using Campeonatos.Dominio.Tabela;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Campeonatos.Infra.Cadastros.Contratos
 {

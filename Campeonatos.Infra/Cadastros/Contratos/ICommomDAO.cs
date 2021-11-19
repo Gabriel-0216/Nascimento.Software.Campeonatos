@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Campeonatos.Infra.Cadastros.Contratos
+﻿namespace Campeonatos.Infra.Cadastros.Contratos
 {
     public interface ICommomDAO<T> where T : class
     {

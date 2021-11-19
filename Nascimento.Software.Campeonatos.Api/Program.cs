@@ -1,13 +1,17 @@
 using Campeonatos.Application.Servicos.Contratos;
 using Campeonatos.Application.Servicos.Implementacoes;
 using Campeonatos.Dominio.Clubes;
+using Campeonatos.Dominio.Tabela;
 using Campeonatos.Infra.Cadastros.Contratos;
 using Campeonatos.Infra.Cadastros.Implementacoes;
-using Campeonatos.Infra.Data;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Campeonatos.Infra.Cadastros.Implementacoes.SubDominios;
-using Campeonatos.Dominio.Tabela;
+using Campeonatos.Infra.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Nascimento.Software.Campeonatos.Api.Configuration;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,8 +45,36 @@ builder.Services.AddScoped<ICommomDAO<Vermelhos>, VermelhosDAO>();
 
 builder.Services.AddScoped<ITabelasService, TabelasService>();
 
+builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
+
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("Default")), ServiceLifetime.Transient);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(jwt =>
+{
+    var key = Encoding.ASCII.GetBytes(builder.Configuration["JwtConfig:Secret"]);
+    jwt.SaveToken = true;
+    jwt.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        RequireExpirationTime = false,
+    };
+});
+
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
 
@@ -55,6 +87,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

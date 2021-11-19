@@ -1,6 +1,4 @@
-﻿using Campeonatos.Dominio.Clubes;
-
-namespace Nascimento.Software.Campeonatos.Api.models.DTO
+﻿namespace Nascimento.Software.Campeonatos.Api.models.DTO
 {
     public class ClubeDTO
     {
