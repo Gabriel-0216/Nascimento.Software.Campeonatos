@@ -1,6 +1,8 @@
 # Nascimento.Software.Campeonatos
 Nascimento.Software.Campeonatos
 
+.NET 6 | Entity Framework 6 | JWT | 
+
 
 API simples pra um sistema de gestão de campeonatos de futebol
 
